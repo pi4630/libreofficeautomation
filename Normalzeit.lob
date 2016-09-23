@@ -16,8 +16,7 @@ REM GNU General Public License for more details.
 REM
 REM You should have received a copy of the GNU General Public License
 REM along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
+	CompatibilityMode(true) 'for to use the Round function ? https://forum.openoffice.org/en/forum/viewtopic.php?f=9&t=65419
 	Dim intTage as Integer
 	Dim intIMin as Integer Rem Industrieminuten
 	Dim intNMin as Integer Rem Normale Minuten
@@ -27,6 +26,7 @@ REM along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	Dim arrHun(1) as Variant
 	Dim intHund as Integer
 	Dim singArbeitszeit as Single
+	Dim strTmpMin as String
 	
 	singArbeitszeit = 7.60
 	
@@ -57,7 +57,11 @@ REM along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			
 			if uBound(arrHun()) > 0 then
 			Rem minuten vorhanden
-				intIMin = Left(arrHun(1), 2)
+				strTmpMin =  Left(arrHun(1), 2)
+				if Len(strTmpMin) = 1 then
+					strTmpMin = strTmpMin & "0"
+				end if
+				intIMin = CInt(strTmpMin)
 				intNMin = (intIMin / 5) * 3
 				strMinuten = CStr(intNMin)
 				strMinuten = AddZeroFirst(strMinuten)
